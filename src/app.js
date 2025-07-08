@@ -17,8 +17,11 @@ app.use(cors({
 // Webhooks middleware (rawbody for Stripe)
 app.use('/webhook', express.raw({ type: 'application/json' }))
 
+// JSON body parser for API routes
+app.use(express.json())
+
 // Routes
-app.use('/', apiRoutes)
+app.use('/api', apiRoutes)
 
 // Default route
 app.get('/', (req, res) => {
@@ -27,6 +30,10 @@ app.get('/', (req, res) => {
     version: '1.0.0',
     status: 'active',
   })
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
 })
 
 module.exports = app
